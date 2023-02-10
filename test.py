@@ -23,9 +23,37 @@ from time import sleep
 
 # combate = 659, 412
 
-while True:
-    run = pyautogui.locateOnScreen(
-        'run.JPG', confidence=0.7)
-    print(run)
+# while True:
+#     troca = pyautogui.locateOnScreen(
+#         'pokemontroca.JPG', confidence=0.8)
+#     pyautogui.moveTo(troca)
+#     sleep(0.5)
+#     pyautogui.click(troca)
+
+#     sleep(1.5)
+
+#     parasect = pyautogui.locateOnScreen('parasectchoose.JPG', confidence=0.8)
+#     pyautogui.moveTo(parasect)
+#     sleep(0.5)
+#     pyautogui.click(parasect)
+#     break
 
 # left=781, top=708
+
+# variavel = 0
+
+# # if (variavel == 0 or variavel == 1):
+# #     print("funciona")
+# # else:
+# #     print("nao funciona")
+
+# while True:
+#     print("comecou")
+#     if (variavel == 0 or variavel == 1):
+#         print("entrou aqui")
+#         if (variavel == 0):
+#             break
+while True:
+    combate2 = pyautogui.locateOnScreen('combate2.jpg', confidence=0.9)
+    pyautogui.moveTo(combate2)
+    print(combate2)
