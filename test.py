@@ -53,7 +53,13 @@ from time import sleep
 #         print("entrou aqui")
 #         if (variavel == 0):
 #             break
-while True:
-    combate2 = pyautogui.locateOnScreen('combate2.jpg', confidence=0.9)
-    pyautogui.moveTo(combate2)
-    print(combate2)
+# while True:
+#     combate2 = pyautogui.locateOnScreen('combate2.jpg', confidence=0.9)
+#     pyautogui.moveTo(combate2)
+#     print(combate2)
+
+
+def aperta_tecla(tecla):
+    pyautogui.keyDown(tecla)
+    sleep(0.5)
+    pyautogui.keyUp(tecla)
