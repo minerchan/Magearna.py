@@ -6,7 +6,7 @@ from time import sleep
 
 def calculo(passos):
     passos = passos * 0.283
-    passos = round(passos, 4)
+    # passos = round(passos, 6)
     return passos
 
 # Essa função utiliza a função calcula, usando como parâmetros o número de passos e direção que o personagem vai andar
@@ -16,7 +16,7 @@ def passo_direcao(passo, direcao):
     pyautogui.keyDown(direcao)
     sleep(calculo(passo))
     pyautogui.keyUp(direcao)
-    sleep(0.2)
+    sleep(0.7)
 
 # Essa função utiliza de parâmetro o número de balões de chats que a conversa vai ter e conversa com o personagem
 
@@ -54,7 +54,7 @@ def luta(imagem):
     pyautogui.moveTo(movimento)
     sleep(0.5)
     pyautogui.click(movimento)
-    sleep(7.5)
+    sleep(9)
 
 
 def identificar(imagem):
@@ -148,9 +148,46 @@ def ataque(imagem):
 
 
 def healando():
+    esperar(1)
     fala(2)
+    esperar(4)
     aperta_tecla('1')
-    esperar(2)
+    esperar(3)
     fala(1)
     esperar(7)
     fala(1)
+
+
+def clica_arrasta_de_2parametro_pra_2parametro(a, b, c, d):
+    pyautogui.moveTo(a, b, duration=0.25)
+    pyautogui.dragTo(c, d, duration=0.5)
+
+
+def fechar_mochila():
+    identificar_mover_clicar("./imagens/x.JPG")
+
+
+def rare_candy(imagem):
+    identificar_mover_clicar('./imagens/mochila.JPG')
+    esperar(3)
+    identificar_mover_clicar('./imagens/medicine.JPG')
+    esperar(2)
+    identificar_mover_clicar('./imagens/rarecandy.JPG')
+    esperar(2)
+    identificar_mover_clicar(imagem)
+    esperar(2)
+    fechar_mochila()
+    esperar(2)
+
+
+def potion(imagem):
+    identificar_mover_clicar('./imagens/mochila.JPG')
+    esperar(3)
+    identificar_mover_clicar('./imagens/medicine.JPG')
+    esperar(2)
+    identificar_mover_clicar('./imagens/potion.JPG')
+    esperar(2)
+    identificar_mover_clicar(imagem)
+    esperar(2)
+    fechar_mochila()
+    esperar(2)
