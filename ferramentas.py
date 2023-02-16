@@ -1,7 +1,10 @@
 import pyautogui
 from time import sleep
-
+from playsound import playsound
+import sys
 # Essa função calcula o número de passos de acordo com o parâmetro passos, usando o tempo de 0.283 para cada passo
+
+posicao_combate_novo = [629, 410, 59, 11]
 
 
 def calculo(passos):
@@ -17,6 +20,20 @@ def passo_direcao(passo, direcao):
     sleep(calculo(passo))
     pyautogui.keyUp(direcao)
     sleep(0.7)
+
+
+def passo_direcao_rapido_andando(passo, direcao):
+    pyautogui.keyDown(direcao)
+    esperar(0.2 * passo)
+    pyautogui.keyUp(direcao)
+    sleep(0.5)
+
+
+def passo_direcao_rapido_correndo(passo, direcao):
+    pyautogui.keyDown(direcao)
+    esperar(0.2 * passo)
+    pyautogui.keyUp(direcao)
+    sleep(0.1)
 
 # Essa função utiliza de parâmetro o número de balões de chats que a conversa vai ter e conversa com o personagem
 
@@ -55,6 +72,21 @@ def luta(imagem):
     sleep(0.5)
     pyautogui.click(movimento)
     sleep(9)
+
+
+def luta2(imagem):
+    luta = pyautogui.locateOnScreen(
+        './imagens/fight.JPG', confidence=0.8)
+    pyautogui.moveTo(luta)
+    sleep(0.5)
+    pyautogui.click(luta)
+    sleep(0.5)
+    movimento = pyautogui.locateOnScreen(
+        imagem, confidence=0.8)
+    pyautogui.moveTo(movimento)
+    sleep(0.5)
+    pyautogui.click(movimento)
+    sleep(5)
 
 
 def identificar(imagem):
@@ -118,6 +150,10 @@ def imprimir_verde(nome):
     print("\033[32m" + nome + "\033[0m")
 
 
+def imprimir_azul(nome):
+    print("\033[34m" + nome + "\033[0m")
+
+
 posicao_goto = [1323, 78, 100, 100]
 
 
@@ -147,6 +183,19 @@ def ataque(imagem):
         luta(imagem)
 
 
+def ataque2(imagem):
+    while True:
+        pikobola = pyautogui.locateOnScreen(
+            './imagens/pikobola.JPG', confidence=0.8, region=posicao_pikobola_1)
+        pyautogui.moveTo(pikobola)
+        sleep(0.2)
+        if (pikobola == None):
+            imprimir_verde("pokemon morreu entao vou parar")
+            break
+        imprimir_vermelho("pokemon não morreu vou atacar de novo")
+        luta2(imagem)
+
+
 def healando():
     esperar(1)
     fala(2)
@@ -159,7 +208,9 @@ def healando():
 
 
 def clica_arrasta_de_2parametro_pra_2parametro(a, b, c, d):
+    # aqui é a duração que o mouse leva pra ir até a pasta
     pyautogui.moveTo(a, b, duration=0.25)
+    # aqui é a duração que o mouse carrega a pasta do ponto a,b ao c,d
     pyautogui.dragTo(c, d, duration=0.5)
 
 
@@ -191,3 +242,141 @@ def potion(imagem):
     esperar(2)
     fechar_mochila()
     esperar(2)
+
+
+posicao_do_chat = [12, 722, 600, 13]
+
+
+def sair_da_luta():
+    identificar_mover_clicar('./imagens/run.JPG')
+
+
+# def estou_em_combate():
+#     pikobola = pyautogui.locateOnScreen(
+#         './imagens/pikobola.JPG', confidence=0.8, region=posicao_pikobola_1)
+#     pyautogui.moveTo(pikobola)
+#     esperar(0.2)
+#     if (pikobola != None):
+#         imprimir_verde('estou em combate')
+#         return True
+
+
+# './imagens/parasectchoose.JPG'
+
+
+def trocar_pokemon(imagem):
+    identificar_mover_clicar('./imagens/pokemontroca.JPG')
+    esperar(0.5)
+    identificar_mover_clicar(imagem)
+    esperar(7)
+
+
+def tampar_pokeball():
+    identificar_mover_clicar('./imagens/itens.JPG')
+    esperar(1)
+    identificar_mover_clicar('./imagens/pokeballoption.JPG')
+    esperar(1)
+    identificar_mover_clicar('./imagens/pokeballusar.JPG')
+    esperar(9)
+
+
+def anda_ate_entrar_em_combate():
+    while True:
+        passo_direcao_rapido_correndo(2, 'up')
+        passo_direcao_rapido_correndo(2, 'down')
+        esperar(0.2)
+        pikobola = pyautogui.locateOnScreen(
+            './imagens/pikobola.JPG', confidence=0.8, region=posicao_pikobola_1)
+        pyautogui.moveTo(pikobola)
+        if (pikobola != None):
+            imprimir_verde("estou em combate")
+            break
+
+
+def anda_ate_entrar_em_combate_direita():
+    while True:
+        # passo_direcao_rapido(1, 'right')
+        # passo_direcao_rapido(1, 'left')
+        esperar(0.2)
+        pikobola = pyautogui.locateOnScreen(
+            './imagens/pikobola.JPG', confidence=0.8, region=posicao_pikobola_1)
+        pyautogui.moveTo(pikobola)
+        if (pikobola != None):
+            imprimir_verde("estou em combate")
+            break
+
+
+def anda_ate_entrar_em_combate_na_agua():
+    while True:
+        passo_direcao(5, 'left')
+        aperta_tecla('2')
+        esperar(0.4)
+        passo_direcao(3, 'right')
+        pikobola = pyautogui.locateOnScreen(
+            './imagens/pikobola.JPG', confidence=0.8, region=posicao_pikobola_1)
+        pyautogui.moveTo(pikobola)
+        if (pikobola != None):
+            imprimir_verde("estou em combate")
+            break
+
+
+def o_bicho_que_quero_hab_que_nao_quero(imagem, hab, hab2):
+    while True:
+        variavel = pyautogui.locateOnScreen(imagem, confidence=0.8)
+        if (variavel != None):
+            imprimir_verde("é o bicho que quero!")
+            esperar(2)
+            conferindo_habilidade_que_nao_quer(hab, hab2)
+            break
+        imprimir_vermelho("não é o bicho que quero")
+        esperar(2)
+        sair_da_luta()
+        break
+
+
+def conferindo_habilidade_que_nao_quer(hab, hab2):
+    while True:
+        variavel = pyautogui.locateOnScreen(
+            hab, confidence=0.8, region=posicao_do_chat, grayscale=True)
+        variavel2 = pyautogui.locateOnScreen(
+            hab2, confidence=0.8, region=posicao_do_chat, grayscale=True)
+        if (variavel != None or variavel2 != None):
+            imprimir_vermelho("não é a habilidade que quero, vou embora")
+            sair_da_luta()
+            break
+        imprimir_azul("é a habilidade que quero")
+        # playsound('pikomon.mp3')
+        sys.exit()
+
+
+def anda_ate_entrar_em_combate_na_agua_direita():
+    while True:
+        passo_direcao(5, 'right')
+        aperta_tecla('2')
+        esperar(0.4)
+        passo_direcao(3, 'left')
+
+        pikobola = pyautogui.locateOnScreen(
+            './imagens/pikobola.JPG', confidence=0.8, region=posicao_pikobola_1)
+        pyautogui.moveTo(pikobola)
+        if (pikobola != None):
+            imprimir_verde("estou em combate")
+            break
+
+
+def e_shiny():
+    while True:
+        variavel = pyautogui.locateOnScreen(
+            './imagens/shiny.jpg', confidence=0.8)
+        if (variavel != None):
+            imprimir_azul("Achei um shiny")
+            sys.exit()
+        imprimir_vermelho("não achei um shiny")
+        break
+
+
+def checar_combate_novo():
+    variavel = pyautogui.locateOnScreen(
+        './imagens/combate_novo.JPG', confidence=0.8, grayscale=True)
+    pyautogui.moveTo(variavel)
+    return variavel
